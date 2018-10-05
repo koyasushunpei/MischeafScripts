@@ -4,12 +4,7 @@ import time
 import signal
 import socket
 import sys
-
-
-class pycolor:
-    GREEN = '\033[32;1m'
-    BLUE = '\033[34;1m'
-    END = '\033[m'
+import subprocess
 
 
 def prompt():
@@ -18,8 +13,19 @@ def prompt():
     user = os.environ.get("USER")
     machine = socket.gethostname()
     path = path.replace(os.environ.get("HOME"), "~")
-    print(pycolor.GREEN + " " + user + "@" + machine + pycolor.END + ":" + pycolor.BLUE + path + "\n" + pycolor.END + ">"),
+    ps1 = subprocess.check_output(['bash','-i','-c','echo $PS1'])
+    dic = {
+        '\e': '\033',
+        '\u': user,
+        '\h': machine,
+        '\w': path,
+        '\n': '',
+        '\\n': '\n'
+    }
 
+    for key, value in dic.items():
+        ps1 = ps1.replace(key, value)
+    print(ps1),
 
 
 def handler(signum, frame):
