@@ -16,7 +16,7 @@ def prompt():
     ps1 = subprocess.check_output(['bash','-i','-c','echo $PS1'])
     his_wc = subprocess.check_output(['bash','-i','-c','cat ~/.bash_history | grep -v "#" | wc -l'])
     his_wc = his_wc.replace('\n', '')
-    
+
     dic = {
         '\e': '\033',
         '\\033': '\033',
@@ -30,7 +30,7 @@ def prompt():
         '\n': '',
         '\\n': '\n'
     }
-    
+
     for key, value in dic.items():
         ps1 = ps1.replace(key, value)
     print(ps1),
