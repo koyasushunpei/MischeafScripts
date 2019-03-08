@@ -47,9 +47,9 @@ def handler(signum, frame):
 
 
 def instantaneousPDF(pdfName):
-    os.system("evince -f " + pdfName + " 2>/dev/null &")
+    os.system("eog -f " + pdfName + " 2>/dev/null &")
     time.sleep(1)
-    os.system("pgrep -f " + "'evince -f " + pdfName + "'" + " |xargs kill")
+    os.system("pgrep -f " + "'eog -f " + pdfName + "'" + " |xargs kill")
 
 
 def yamash(pdfName):
